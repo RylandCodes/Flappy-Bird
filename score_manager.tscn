@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://de7kot3p5vokh"]
+
+[ext_resource type="Script" path="res://Scripts/score_manager.gd" id="1_5ko8c"]
+[ext_resource type="FontFile" uid="uid://cqgyar8efma25" path="res://Assets/font/FlappyBird.ttf" id="2_xjfdy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r627x"]
+font = ExtResource("2_xjfdy")
+font_size = 32
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ScoreManager" type="Node2D"]
+z_index = 10
+texture_filter = 1
+scale = Vector2(8, 8)
+script = ExtResource("1_5ko8c")
+
+[node name="Label" type="Label" parent="."]
+z_index = 19
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -19.2
+offset_top = -23.0
+offset_right = 20.8
+offset_bottom = 23.0
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "0
+"
+label_settings = SubResource("LabelSettings_r627x")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqk2r2ymllgpp"]
+
+[ext_resource type="Script" path="res://Scripts/flash.gd" id="1_tkawj"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3kirt"]
+
+[node name="Flash" type="Sprite2D"]
+scale = Vector2(864, 1536)
+texture = SubResource("CanvasTexture_3kirt")
+script = ExtResource("1_tkawj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.015
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

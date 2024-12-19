@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://crpvnfy7q7ewk"]
+
+[ext_resource type="Texture2D" uid="uid://drx10uoxjpba5" path="res://Assets/pipe-green.png" id="1_3bm4h"]
+[ext_resource type="Script" path="res://Scripts/pipes.gd" id="1_i0mp6"]
+[ext_resource type="Script" path="res://Scripts/pipe_pair.gd" id="2_81onk"]
+[ext_resource type="AudioStream" uid="uid://cqwxo8mh4s4ua" path="res://Assets/Sound/coin.mp3" id="4_urq05"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55384"]
+size = Vector2(48, 476)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2k4y"]
+size = Vector2(59.6667, 153.667)
+
+[node name="Pipes" type="Node2D"]
+script = ExtResource("1_i0mp6")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.6
+autostart = true
+
+[node name="Pipes" type="Node2D" parent="."]
+
+[node name="PipePair" type="Node2D" parent="Pipes"]
+visible = false
+scale = Vector2(3, 3)
+script = ExtResource("2_81onk")
+
+[node name="TopPipe" type="Area2D" parent="Pipes/PipePair"]
+position = Vector2(0, -570.668)
+rotation = -3.14159
+
+[node name="Sprite2D" type="Sprite2D" parent="Pipes/PipePair/TopPipe"]
+texture = ExtResource("1_3bm4h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipes/PipePair/TopPipe"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_55384")
+
+[node name="BottomPipe" type="Area2D" parent="Pipes/PipePair"]
+position = Vector2(0, 21.3333)
+
+[node name="Sprite2D" type="Sprite2D" parent="Pipes/PipePair/BottomPipe"]
+texture = ExtResource("1_3bm4h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipes/PipePair/BottomPipe"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_55384")
+
+[node name="Timer" type="Timer" parent="Pipes/PipePair"]
+wait_time = 6.0
+
+[node name="Score" type="Area2D" parent="Pipes/PipePair"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipes/PipePair/Score"]
+position = Vector2(55, -275.167)
+shape = SubResource("RectangleShape2D_n2k4y")
+
+[node name="coinsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_urq05")
+volume_db = -0.496
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Pipes/PipePair/TopPipe" to="." method="_on_top_pipe_body_entered"]
+[connection signal="body_entered" from="Pipes/PipePair/BottomPipe" to="." method="_on_bottom_pipe_body_entered"]
+[connection signal="timeout" from="Pipes/PipePair/Timer" to="Pipes/PipePair" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Pipes/PipePair/Score" to="." method="_on_score_body_entered"]
